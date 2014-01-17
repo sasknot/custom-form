@@ -234,6 +234,10 @@
 							else {
 								$errorContainer.find('.sendError').show().find('span').text('null');
 							}
+
+							if( response.url ) {
+								window.location.href = response.url;
+							}
 						},
 						error: function( x, t, e ) {
 							$errorContainer.find('p').hide();
