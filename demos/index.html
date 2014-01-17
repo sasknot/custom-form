@@ -1,0 +1,145 @@
+<!doctype>
+<html>
+<head>
+	<title>Custom Form Demo</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.5/select2.css" />
+	<style type="text/css">
+		body {
+			color: #000000;
+			font: 12px/1 Arial, Helvetica, sans-serif;
+		}
+		.defaultForm {
+			width: 600px;
+		}
+		.defaultForm .row {
+			padding: 5px 0;
+		}
+		.defaultForm .row .field {
+			float: left;
+			width: 100%;
+		}
+		.defaultForm .row .field.state {
+			width: 15%;
+		}
+		.defaultForm .row .field.city {
+			margin-left: 5%;
+			width: 80%;
+		}
+		.defaultForm .row .field input,
+		.defaultForm .row .field textarea {
+			border: 1px solid #666666;
+		}
+		.defaultForm .row .field input,
+		.defaultForm .row .field textarea,
+		.defaultForm .row .field .select2-container {
+			width: 100%;
+		}
+		.defaultForm .row .field.error input,
+		.defaultForm .row .field.error textarea {
+			border-color: red;
+		}
+		.defaultForm .row .field.error .select2-container .select2-choice {
+			border-color: red;
+		}
+		.defaultForm .row:after {
+			clear: both;
+			content: '';
+			display: block;
+		}
+		.defaultForm .messages p {
+			display: none;
+		}
+		.defaultForm .messages p.invalid,
+		.defaultForm .messages p.sendError,
+		.defaultForm .messages p.error {
+			color: red;
+		}
+		.defaultForm .messages p.success {
+			color: green;
+		}
+	</style>
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/select2/3.4.5/select2.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/select2/3.4.5/select2_locale_pt-BR.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.maskedinput/1.3.1/jquery.maskedinput.min.js"></script>
+	<script type="text/javascript" src="../src/jquery.custom-form.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.defaultForm').customForm();
+		})
+	</script>
+</head>
+<body>
+	<form action="response.php" method="post" class="defaultForm ajaxForm">
+		<div class="row">
+			<div class="field">
+				<div>
+					<div>
+						<input name="name" type="text" placeholder="Nome" class="required" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="field email">
+				<div>
+					<div>
+						<input name="email" type="text" placeholder="E-mail" class="required" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="field phone">
+				<div>
+					<div>
+						<input name="phone" type="text" placeholder="Telefone" class="required" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="field state">
+				<div>
+					<div>
+						<select name="state" class="select2-no-search required" placeholder="UF" data-target="#atendimentoCidade" data-request-url="ajax_cidades.php?id=">
+							<option value=""></option>
+							<option value="1">SP</option>
+							<option value="2">RJ</option>
+							<option value="3">RS</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="field city">
+				<div>
+					<div>
+						<select name="city" id="atendimentoCidade" class="select2 required" placeholder="Cidade">
+							<option value=""></option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="field textarea">
+				<div>
+					<div>
+						<textarea name="message" placeholder="Mensagem" class="required"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<input type="submit" value="enviar" />
+			<div class="messages">
+				<p class="invalid">Por favor, preencha os campos obrigatórios corretamente.</p>
+				<p class="sending">Enviando...</p>
+				<p class="sendError">Ocorreu um erro no envio: <span></span></p>
+				<p class="return"></p>
+			</div>
+		</div>
+	</form>
+</body>
+</html>
