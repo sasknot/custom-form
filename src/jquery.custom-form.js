@@ -1,14 +1,11 @@
 /**  
  * jQuery Plugin: Custom Form Integration
  *   
- *  @package    Phocus
+ *  @package    JS Plugins
  *  @category   jquery plugin
  *  @name       jquery.custom-form.js
  *  @author     Rafael F. Silva <rafaelsilva@phocus.com.br>
- *  @copyright  Phocus Interact
- *  @license    Phocus Interact
  *  @link       /js/plugins/jquery.custom-form.js
- *  @version    1.0.0
  *  @since      14/01/2014
  *
  *  Este plugin necessita de outros plugins para certas funcionalidades funcionarem,
@@ -191,8 +188,6 @@
 				$errorContainer.find('p').hide();
 				if( stopSend ) {
 					event.preventDefault();
-					event.stopPropagation();
-					event.stopImmediatePropagation();
 
 					form.data('is-valid', false);
 					form.find('.messages .invalid').show();
@@ -235,8 +230,14 @@
 								$errorContainer.find('.sendError').show().find('span').text('null');
 							}
 
+							// Se for definida alguma URL, redireciona
 							if( response.url ) {
 								window.location.href = response.url;
+							}
+
+							// Se tiver alguma callback logo após o AJAX, executa
+							if( response.data ) {
+								form.trigger('ajax-callback', response.data);
 							}
 						},
 						error: function( x, t, e ) {
