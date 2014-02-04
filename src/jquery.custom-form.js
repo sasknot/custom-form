@@ -110,7 +110,7 @@
 							target.html(cities).attr('placeholder', 'Cidade');
 
 							if( $.fn.select2 ) {
-								target.select2('val', '');
+								target.select2('val', '').select2('close');
 							}
 						}
 					});
