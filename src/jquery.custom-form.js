@@ -122,24 +122,28 @@
 				var form = $(this);
 				var $errorContainer;
 
+				// Set the messages container
 				if( typeof( settings.errorContainer ) == 'string' ) {
 					$errorContainer = $(this).find( settings.errorContainer );
 				}
 				else {
 					$errorContainer = settings.errorContainer;
 				}
-				
+
+				// Validate each field
 				form.find('input, select, textarea').filter('.' + settings.requiredClass + ':not([disabled])').each(function() {
 					if(
+						// For texts
 						(
 							this.tagName == 'INPUT'
 							&& (
 								this.type == 'text'
 								|| this.type == 'password'
-								|| this.type == 'date'
 							)
 							&& this.value == ''
 						)
+
+						// For files
 						|| (
 							this.tagName == 'INPUT'
 							&& this.type == 'file'
@@ -148,6 +152,19 @@
 								|| $(this).closest('.field').hasClass( settings.errorClass )
 							)
 						)
+
+						// For dates
+						|| (
+							this.tagName == 'INPUT'
+							&& this.type == 'text'
+							&& $(this).closest('.field').hasClass('date')
+							&& (
+								this.value == ''
+								|| !( /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/g.exec( this.value ) )
+							)
+						)
+
+						// For emails
 						|| (
 							this.tagName == 'INPUT'
 							&& (
@@ -160,15 +177,54 @@
 								|| !( /^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/.exec( this.value ) )
 							)
 						)
+
+						// For URLs
+						|| (
+							this.tagName == 'INPUT'
+							&& (
+								this.type == 'text'
+								|| this.type == 'url'
+							)
+							&& $(this).closest('.field').hasClass('url')
+							&& (
+								this.value == ''
+								|| !( /(http:\/\/)([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2,3}/.exec( this.value ) )
+							)
+						)
+
+						// For checkboxes
+						|| (
+							this.tagName == 'INPUT'
+							&& (
+								this.type == 'checkbox'
+							)
+							&& this.checked == false
+						)
+
+						// For radios
+						|| (
+							this.tagName == 'INPUT'
+							&& (
+								this.type == 'radio'
+							)
+							&& $(this).closest('form').find('[name="' + this.name + '"]:checked').length == 0
+						)
+
+						// for textareas
 						|| (
 							this.tagName == 'TEXTAREA'
 							&& $(this).val() == ''
 						)
+
+						// For selects
 						|| (
 							this.tagName == 'SELECT'
 							&& (
 								$(this).val() == ''
-								|| ( $(this).val().length && $(this).val().length == 0 )
+								|| (
+									$(this).val().length
+									&& $(this).val().length == 0
+								)
 							)
 						)
 					) {
@@ -178,11 +234,6 @@
 					else {
 						$(this).closest('.field').removeClass( settings.errorClass );
 					}
-				});
-
-				// FIXME: integrar com validação acima
-				form.find('input[type="file"].' + settings.errorClass).each(function() {
-					stopSend = true;
 				});
 
 				$errorContainer.find('p').hide();
