@@ -56,6 +56,15 @@
 
 					$(this).maskMoney( options );
 				});
+
+				$(this).find('.field.float input').each(function() {
+					var options = $.extend( defaults, {
+						symbol: '',
+						thousands: ''
+					});
+
+					$(this).maskMoney( options );
+				});
 			}
 
 			// Select customizado
