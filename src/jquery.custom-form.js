@@ -276,6 +276,16 @@
 						)
 					)
 
+					// For CPF
+					|| (
+						this.tagName == 'INPUT'
+						&& $(this).closest('.field').hasClass('cpf')
+						&& (
+							this.value == ''
+							|| !(function(e){var t,n,r,i,s,o;e=e.replace(/[^0-9]/g,"");o=1;if(e.length<11){return false}for(var i=0;i<e.length-1;i++){if(e.charAt(i)!=e.charAt(i+1)){o=0;break}}if(!o){t=e.substring(0,9);n=e.substring(9);r=0;for(i=10;i>1;i--){r+=t.charAt(10-i)*i}s=r%11<2?0:11-r%11;if(s!=n.charAt(0)){return false}t=e.substring(0,10);r=0;for(i=11;i>1;i--){r+=t.charAt(11-i)*i}s=r%11<2?0:11-r%11;if(s!=n.charAt(1)){return false}return true}else{return false}})(this.value)
+						)
+					)
+
 					// For equals to
 					|| (
 						$(this).closest('.field').hasClass('equalsTo')
