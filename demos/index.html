@@ -9,7 +9,11 @@
 			color: #000000;
 			font: 12px/1 Arial, Helvetica, sans-serif;
 		}
+		h2 {
+			clear: both;
+		}
 		.defaultForm {
+			float: left;
 			width: 600px;
 		}
 		.defaultForm .row {
@@ -29,6 +33,10 @@
 		.defaultForm .row .field input,
 		.defaultForm .row .field textarea {
 			border: 1px solid #666666;
+			padding: 5px;
+		}
+		.defaultForm .row .field textarea {
+			resize: none;
 		}
 		.defaultForm .row .field input,
 		.defaultForm .row .field textarea,
@@ -58,6 +66,12 @@
 		.defaultForm .messages p.success {
 			color: green;
 		}
+		.buttons {
+			float: left;
+			padding-top: 10px;
+			text-align: right;
+			width: 200px;
+		}
 	</style>
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="//cdn.jsdelivr.net/select2/3.4.5/select2.min.js"></script>
@@ -67,68 +81,99 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.defaultForm').customForm();
+
+			$('#triggerValidate1').click(function(){
+				$('#firstForm').customForm('validate');
+			});
 		})
 	</script>
 </head>
 <body>
-	<form action="response.php" method="post" class="defaultForm ajaxForm">
+	<h2>First form</h2>
+	<form id="firstForm" action="response.php" method="post" class="defaultForm ajaxForm">
 		<div class="row">
 			<div class="field">
-				<div>
-					<div>
-						<input name="name" type="text" placeholder="Nome" class="required" />
-					</div>
-				</div>
+				<input name="name" type="text" placeholder="Nome" class="required" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="field email">
-				<div>
-					<div>
-						<input name="email" type="text" placeholder="E-mail" class="required" />
-					</div>
-				</div>
+				<input name="email" type="text" placeholder="E-mail" class="required" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="field phone">
-				<div>
-					<div>
-						<input name="phone" type="text" placeholder="Telefone" class="required" />
-					</div>
-				</div>
+				<input name="phone" type="text" placeholder="Telefone" class="required" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="field state">
-				<div>
-					<div>
-						<select name="state" class="select2-no-search required" placeholder="UF" data-target="#atendimentoCidade" data-request-url="ajax_cidades.php?id=">
-							<option value=""></option>
-							<option value="1">SP</option>
-							<option value="2">RJ</option>
-							<option value="3">RS</option>
-						</select>
-					</div>
-				</div>
+				<select name="state" class="select2-no-search required" placeholder="UF" data-target="#atendimentoCidade" data-request-url="ajax_cidades.php?id=">
+					<option value=""></option>
+					<option value="1">SP</option>
+					<option value="2">RJ</option>
+					<option value="3">RS</option>
+				</select>
 			</div>
 			<div class="field city">
-				<div>
-					<div>
-						<select name="city" id="atendimentoCidade" class="select2 required" placeholder="Cidade">
-							<option value=""></option>
-						</select>
-					</div>
-				</div>
+				<select name="city" id="atendimentoCidade" class="select2 required" placeholder="Cidade">
+					<option value=""></option>
+				</select>
 			</div>
 		</div>
 		<div class="row">
 			<div class="field textarea">
-				<div>
-					<div>
-						<textarea name="message" placeholder="Mensagem" class="required"></textarea>
-					</div>
-				</div>
+				<textarea name="message" placeholder="Mensagem" class="required"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<input type="submit" value="enviar" />
+			<div class="messages">
+				<p class="invalid">Por favor, preencha os campos obrigatórios corretamente.</p>
+				<p class="sending">Enviando...</p>
+				<p class="sendError">Ocorreu um erro no envio: <span></span></p>
+				<p class="return"></p>
+			</div>
+		</div>
+	</form>
+	<div class="buttons">
+		<input id="triggerValidate1" type="button" value="validate first form" />
+	</div>
+	<h2>Second form</h2>
+	<form id="secondForm" action="response.php" method="post" class="defaultForm ajaxForm">
+		<div class="row">
+			<div class="field">
+				<input name="name" type="text" placeholder="Nome" class="required" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="field email">
+				<input name="email" type="text" placeholder="E-mail" class="required" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="field phone">
+				<input name="phone" type="text" placeholder="Telefone" class="required" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="field state">
+				<select name="state" class="select2-no-search required" placeholder="UF" data-target="#atendimentoCidade" data-request-url="ajax_cidades.php?id=">
+					<option value=""></option>
+					<option value="1">SP</option>
+					<option value="2">RJ</option>
+					<option value="3">RS</option>
+				</select>
+			</div>
+			<div class="field city">
+				<select name="city" id="atendimentoCidade" class="select2 required" placeholder="Cidade">
+					<option value=""></option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="field textarea">
+				<textarea name="message" placeholder="Mensagem" class="required"></textarea>
 			</div>
 		</div>
 		<div class="row">

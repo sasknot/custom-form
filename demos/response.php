@@ -1,5 +1,7 @@
 <?php
 
+sleep(1);
+
 $output = array(
 	array(
 		'error' => false,
