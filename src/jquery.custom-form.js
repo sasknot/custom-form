@@ -267,6 +267,15 @@
 						)
 					)
 
+					// For equals to
+					|| (
+						$(this).closest('.field').hasClass('equalsTo')
+						&& (
+							$(this).val().length == 0
+							|| $(this).val() != $( $(this).data('equals-to') ).val()
+						)
+					)
+
 					// For checkboxes
 					|| (
 						this.tagName == 'INPUT'
