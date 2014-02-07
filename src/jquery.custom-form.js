@@ -28,13 +28,13 @@
 			// General masks
 			// Required plugin: maskedinput
 			if( $.fn.mask ) {
-				$form.find('.field.date input').mask('99/99/9999');
-				$form.find('.field.time input').mask('99:99:99');
-				$form.find('.field.phone input').mask('99 99999999?9');
-				$form.find('.field.cpf input').mask('999.999.999-99');
-				$form.find('.field.cnpj input').mask('99.999.999/9999-99');
-				$form.find('.field.cep input').mask('99999-999');
-				$form.find('.field.carPlate input').mask('aaa-9999');
+				$form.find('.field.date input[type="text"]').mask('99/99/9999');
+				$form.find('.field.time input[type="text"]').mask('99:99:99');
+				$form.find('.field.phone input[type="text"]').mask('99 99999999?9');
+				$form.find('.field.cpf input[type="text"]').mask('999.999.999-99');
+				$form.find('.field.cnpj input[type="text"]').mask('99.999.999/9999-99');
+				$form.find('.field.cep input[type="text"]').mask('99999-999');
+				$form.find('.field.carPlate input[type="text"]').mask('aaa-9999');
 			}
 
 			// Money and float masks
@@ -52,13 +52,13 @@
 					allowNegative: false
 				};
 
-				$form.find('.field.money input').each(function() {
+				$form.find('.field.money input[type="text"]').each(function() {
 					var options = $.extend( defaults, $(this).data('options') || {} );
 
 					$(this).maskMoney( options );
 				});
 
-				$form.find('.field.float input').each(function() {
+				$form.find('.field.float input[type="text"]').each(function() {
 					var options = $.extend( defaults, {
 						symbol: '',
 						thousands: ''
