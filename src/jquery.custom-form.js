@@ -204,7 +204,9 @@
 			}
 
 			// Validate each field
-			$(form).find('input, select, textarea').filter('.' + settings.requiredClass + ':not([disabled])').each(function() {
+			var filterExpr = '.' + settings.requiredClass + ':not([disabled])' + ( settings.ignoreInvisible ? ':visible' : '' );
+
+			$(form).find('input, select, textarea').filter(filterExpr).each(function() {
 				if(
 					// For texts
 					(
@@ -318,7 +320,7 @@
 			}
 			else {
 				$(form).data('is-valid', true);
-				$(form).find('input[type="submit"]').attr('disabled', 'disabled');
+				$(form).find('input[type="submit"]').attr('disabled', true);
 				$errorContainer.find('.sending').show();
 
 				if( options[0].success ) {
@@ -351,6 +353,7 @@
 	$.fn.customForm.defaults = {
 		requiredClass: 'required',
 		errorClass: 'error',
-		errorContainer: '.messages'
+		errorContainer: '.messages',
+		ignoreInvisible: true
 	};
 })(jQuery);
