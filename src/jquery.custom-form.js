@@ -206,10 +206,16 @@
 				$errorContainer = settings.errorContainer;
 			}
 
-			// Validate each field
-			var filterExpr = '.' + settings.requiredClass + ':not([disabled])' + ( settings.ignoreInvisible ? ':visible' : '' );
+			// Validates each field
+			var filterExpr = '.' + settings.requiredClass + ':not([disabled])';
+			var $formFields = $(form).find('input, select, textarea').filter(filterExpr);
 
-			$(form).find('input, select, textarea').filter(filterExpr).each(function() {
+			// FIXME: define a regular container for form fields
+			if( settings.ignoreInvisible ) {
+				$formFields = $formFields.closest('.field').filter(':visible').find('input, select, textarea').filter(filterExpr);
+			}
+
+			$formFields.each(function() {
 				if(
 					// For texts
 					(
