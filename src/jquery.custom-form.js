@@ -152,7 +152,7 @@
 									if( response ) {
 										$errorContainer.find('.return').show().addClass(response.error ? 'error' : 'success').html(response.message);
 
-										if( response.error == false ) {
+										if( response.error == false && response.clear == false ) {
 											$form.find('input[type="text"], input[type="password"], input[type="email"], input[type="date"], input[type="file"], select:not(.select2), textarea').val('');
 											$form.find('input[type="checkbox"], input[type="radio"]').attr('checked', false).parent().removeClass('selected');
 											if( $.fn.select2 ) {
