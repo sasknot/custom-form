@@ -94,12 +94,14 @@
 				});
 			}
 
-			// State field updates the city field
-			$form.find('.field.state select').change(function(){
+			// A field that updates another targeted field
+			$form.find('.field.state select, .field.target select').change(function(){
 				var target = $( $(this).data('target') );
 				var url = $(this).data('request-url');
 
 				if( target && url && $(this).val() != '' ) {
+					var oldPlaceholder = target.attr('placeholder');
+
 					$.ajax({
 						url: url + $(this).val(),
 						dataType: 'json',
@@ -111,13 +113,13 @@
 							}
 						},
 						success: function(items){
-							var cities = '<option value=""></option>';
+							var options = '<option value=""></option>';
 
-							$.each(items, function (key_city, val_city) {
-								cities += '<option value="' + key_city + '">' + val_city + '</option>';
+							$.each(items, function (id, value) {
+								options += '<option value="' + id + '">' + value + '</option>';
 							});
 
-							target.html(cities).attr('placeholder', 'Cidade');
+							target.html(options).attr('placeholder', oldPlaceholder);
 
 							if( $.fn.select2 ) {
 								target.select2('val', '').select2('close');
