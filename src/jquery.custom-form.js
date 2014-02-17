@@ -1,17 +1,16 @@
-/**  
+/**
  * jQuery Plugin: Custom Form Integration
- *   
+ *
  *  @package    JS Plugins
  *  @category   jquery plugin
- *  @name       jquery.custom-form.js
- *  @author     Rafael F. Silva <rafaelsilva@phocus.com.br>
+ *  @author     Rafael F. Silva <rafaelfsilva1@gmail.com>
  *  @link       /js/plugins/jquery.custom-form.js
  *  @since      14/01/2014
  *
  *  Este plugin necessita de outros plugins para certas funcionalidades funcionarem,
  *  como: select customizado (select2), máscara (maskedinput) e monetização (maskMoney).
  *
- */
+**/
 
 (function($) {
 	'use strict';
@@ -130,6 +129,10 @@
 			});
 
 			$form.on('submit', function( event ) {
+				if( $(this).hasClass('ajaxForm') ) {
+					event.preventDefault();
+				}
+
 				$(this).customForm('validate', {
 					success: function( errorContainer ) {
 						var $form = $(this);
@@ -139,12 +142,10 @@
 						$errorContainer.find('.sending').show();
 
 						if( $form.hasClass('ajaxForm') ) {
-							event.preventDefault();
-
 							$.ajax({
 								url: this.action,
 								type: this.method || 'POST',
-								data: $(this).serialize(),
+								data: $form.serialize(),
 								dataType: 'json',
 								beforeSend: function() {
 									$errorContainer.find('.return').removeClass('success error');
@@ -153,6 +154,16 @@
 									$errorContainer.find('p').hide();
 									if( response ) {
 										$errorContainer.find('.return').show().addClass(response.error ? 'error' : 'success').html(response.message);
+
+										// Se for definida alguma URL, redireciona
+										if ( response.url || response.redirect ) {
+											window.location.href = response.url || response.redirect;
+										}
+
+										// Se tiver alguma callback logo após o AJAX, executa
+										if( response.data ) {
+											$form.trigger('ajax-callback', response.data);
+										}
 
 										if( response.error == false && response.clear == false ) {
 											$form.find('input[type="text"], input[type="password"], input[type="email"], input[type="date"], input[type="file"], select:not(.select2), textarea').val('');
@@ -168,16 +179,6 @@
 									}
 									else {
 										$errorContainer.find('.sendError').show().find('span').text('null');
-									}
-
-									// Se for definida alguma URL, redireciona
-									if( response.url ) {
-										window.location.href = response.url;
-									}
-
-									// Se tiver alguma callback logo após o AJAX, executa
-									if( response.data ) {
-										$form.trigger('ajax-callback', response.data);
 									}
 								},
 								error: function( x, t, e ) {
@@ -353,10 +354,13 @@
 
 			$errorContainer.find('p').hide();
 			if( stopSend ) {
-				event.preventDefault();
+				// event.preventDefault();
 
 				$(form).data('is-valid', false);
 				$(form).find('.messages .invalid').show();
+
+				// FIXME: the right way is to do a event.preventDefault(), but we need the event var here
+				return false;
 			}
 			else {
 				$(form).data('is-valid', true);
