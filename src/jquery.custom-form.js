@@ -228,6 +228,10 @@
 							|| this.type == 'password'
 						)
 						&& this.value == ''
+						&& (
+							$(this).closest('.field').hasClass('depends') == false
+							&& $(this).closest('.field').hasClass('dependsNot') == false
+						)
 					)
 
 					// For files
@@ -306,6 +310,20 @@
 							$(this).val().length == 0
 							|| $(this).val() != $( $(this).data('equals-to') ).val()
 						)
+					)
+
+					// For depends
+					|| (
+						$(this).closest('.field').hasClass('depends')
+						&& $( $(this).data('depends') ).is(':checked')
+						&& $(this).val().length == 0
+					)
+
+					// For depends not
+					|| (
+						$(this).closest('.field').hasClass('dependsNot')
+						&& $( $(this).data('depends') ).is(':checked') == false
+						&& $(this).val().length == 0
 					)
 
 					// For checkboxes
