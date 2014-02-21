@@ -142,6 +142,9 @@
 						var $form = $(this);
 						var $errorContainer = $(errorContainer);
 
+						$form.find('input[type="submit"]').attr('disabled', true);
+						$errorContainer.find('.sending').show();
+
 						if( $form.hasClass('ajaxForm') ) {
 							$.ajax({
 								url: this.action,
@@ -382,9 +385,6 @@
 			}
 			else {
 				$(form).data('is-valid', true);
-
-				$(form).find('input[type="submit"]').attr('disabled', true);
-				$errorContainer.find('.sending').show();
 
 				if( options[0].success ) {
 					options[0].success.apply( form, $errorContainer );
