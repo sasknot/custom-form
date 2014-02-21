@@ -95,20 +95,20 @@
 
 			// A field that updates another targeted field
 			$form.find('.field.state select, .field.target select').change(function(){
-				var target = $( $(this).data('target') );
+				var $target = $( $(this).data('target') );
 				var url = $(this).data('request-url');
 
-				if( target && url && $(this).val() != '' ) {
-					var oldPlaceholder = target.attr('placeholder');
+				if( $target && url && $(this).val() != '' ) {
+					var oldPlaceholder = $target.attr('placeholder');
 
 					$.ajax({
 						url: url + $(this).val(),
 						dataType: 'json',
 						beforeSend: function() {
-							target.html('<option value=""></option>').attr('placeholder', 'Carregando...');
+							$target.html('<option value=""></option>').attr('placeholder', 'Carregando...');
 
 							if( $.fn.select2 ) {
-								target.select2('val', '');
+								$target.select2('val', '');
 							}
 						},
 						success: function(items){
@@ -118,13 +118,21 @@
 								options += '<option value="' + id + '">' + value + '</option>';
 							});
 
-							target.html(options).attr('placeholder', oldPlaceholder);
+							$target.html(options).attr('placeholder', oldPlaceholder);
 
 							if( $.fn.select2 ) {
-								target.select2('val', '').select2('close');
+								$target.select2('val', '').select2('close');
 							}
 						}
 					});
+				}
+			}).on('select2-clearing', function() {
+				var $target = $( $(this).data('target') );
+
+				$target.html('<option value=""></option>');
+
+				if( $.fn.select2 ) {
+					$target.select2('val', '').select2('close');
 				}
 			});
 
