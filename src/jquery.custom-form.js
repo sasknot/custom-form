@@ -129,17 +129,10 @@
 			});
 
 			$form.on('submit', function( event ) {
-				if( $(this).hasClass('ajaxForm') ) {
-					event.preventDefault();
-				}
-
 				$(this).customForm('validate', {
 					success: function( errorContainer ) {
 						var $form = $(this);
 						var $errorContainer = $(errorContainer);
-
-						$form.find('input[type="submit"]').attr('disabled', true);
-						$errorContainer.find('.sending').show();
 
 						if( $form.hasClass('ajaxForm') ) {
 							$.ajax({
@@ -192,6 +185,10 @@
 						}
 					}
 				});
+
+				if( $(this).hasClass('ajaxForm') || $(this).data('is-valid') == false ) {
+					event.preventDefault();
+				}
 			});
 		},
 
@@ -372,16 +369,14 @@
 
 			$errorContainer.find('p').hide();
 			if( stopSend ) {
-				// event.preventDefault();
-
 				$(form).data('is-valid', false);
 				$(form).find('.messages .invalid').show();
-
-				// FIXME: the right way is to do a event.preventDefault(), but we need the event var here
-				return false;
 			}
 			else {
 				$(form).data('is-valid', true);
+
+				$(form).find('input[type="submit"]').attr('disabled', true);
+				$errorContainer.find('.sending').show();
 
 				if( options[0].success ) {
 					options[0].success.apply( form, $errorContainer );
