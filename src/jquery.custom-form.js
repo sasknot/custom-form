@@ -99,7 +99,7 @@
 				var url = $(this).data('request-url');
 
 				if( $target && url && $(this).val() != '' ) {
-					var oldPlaceholder = $target.attr('placeholder');
+					var oldPlaceholder = $target.attr('placeholder') || $target.data('placeholder');
 
 					$.ajax({
 						url: url + $(this).val(),
