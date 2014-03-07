@@ -169,7 +169,7 @@
 											$form.trigger('ajax-callback', response.data);
 										}
 
-										if( response.error == false && response.clear == false ) {
+										if( response.error == false && response.clear ) {
 											$form.find('input[type="text"], input[type="password"], input[type="email"], input[type="date"], input[type="file"], select:not(.select2), textarea').val('');
 											$form.find('input[type="checkbox"], input[type="radio"]').attr('checked', false).parent().removeClass('selected');
 											if( $.fn.select2 ) {
