@@ -248,7 +248,6 @@
 						&& this.type == 'file'
 						&& (
 							this.value == ''
-							|| $(this).closest('.field').hasClass( settings.errorClass )
 						)
 					)
 
