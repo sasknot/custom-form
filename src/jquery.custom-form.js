@@ -428,20 +428,21 @@
 
 	// Plugin initialization or method call
 	$.fn.customForm = function( methodOrOptions ) {
+
 		if( methods[ methodOrOptions ] ) {
 			var options = Array.prototype.slice.call( arguments, 1 );
 
 			return this.each(function(){
-				methods[ methodOrOptions ].call( methods, this, options);
+				methods[ methodOrOptions ].call( methods, this, options );
 			});
 		}
 		else if ( typeof methodOrOptions === 'object' || !methodOrOptions ) {
 			return this.each(function(){
-				methods.init.call( methods, this, arguments );
+				methods.init.call( methods, this, methodOrOptions );
 			});
 		}
 		else {
-			$.error('Method ' +  methodOrOptions + ' does not exist on jQuery.customForm.');
+			$.error('Method ' +  methodOrOptions + ' does not exist on jQuery customForm');
 		}
 	};
 
