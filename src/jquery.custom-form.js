@@ -101,8 +101,17 @@
 				if( $target && url && $(this).val() != '' ) {
 					var oldPlaceholder = $target.attr('placeholder') || $target.data('placeholder');
 
+					// Check if has been targetted, successively
+					var values = [$(this).val()];
+					var current = this;
+
+					while( $('[data-target="#' + current.id + '"]').length > 0 ) {
+						current = $('[data-target="#' + current.id + '"]').get(0);
+						values.unshift( $(current).val() );
+					}
+
 					$.ajax({
-						url: url + $(this).val(),
+						url: url + values.join('/'),
 						dataType: 'json',
 						beforeSend: function() {
 							$target.html('<option value=""></option>').attr('placeholder', 'Carregando...');
@@ -123,16 +132,40 @@
 							if( $.fn.select2 ) {
 								$target.select2('val', '').select2('close');
 							}
+
+							// Check if has targets in the current targetted element, successively
+							var $current = $target;
+							while( $current.closest('.field').hasClass('target') ) {
+								$current = $( $current.data('target') );
+
+								$current.html('<option value=""></option>');
+
+								if( $.fn.select2 ) {
+									$current.select2('val', '').select2('close');
+								}
+							}
 						}
 					});
 				}
-			}).on('select2-clearing', function() {
+			})
+			.on('select2-removed', function() {
+				console.log('select2-removed');
+			})
+			.on('select2-clearing', function() {
 				var $target = $( $(this).data('target') );
 
-				$target.html('<option value=""></option>');
+				$target.html('<option value=""></option>').select2('val', '').select2('close');
 
-				if( $.fn.select2 ) {
-					$target.select2('val', '').select2('close');
+				// Check if has targets in the current targetted element, successively
+				var $current = $target;
+				while( $current.closest('.field').hasClass('target') ) {
+					$current = $( $current.data('target') );
+
+					$current.html('<option value=""></option>');
+
+					if( $.fn.select2 ) {
+						$current.select2('val', '').select2('close');
+					}
 				}
 			});
 
@@ -248,6 +281,7 @@
 						&& this.type == 'file'
 						&& (
 							this.value == ''
+							|| $(this).closest('.field').hasClass( settings.errorClass )
 						)
 					)
 
