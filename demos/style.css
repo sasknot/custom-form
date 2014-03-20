@@ -1,0 +1,64 @@
+body {
+	color: #000000;
+	font: 12px/1 Arial, Helvetica, sans-serif;
+}
+h2 {
+	clear: both;
+}
+.defaultForm {
+	float: left;
+	width: 600px;
+}
+.defaultForm .row {
+	padding: 5px 0;
+}
+.defaultForm .row .field {
+	float: left;
+	width: 100%;
+}
+.defaultForm .row .field.city {
+	margin-left: 5%;
+	width: 80%;
+}
+.defaultForm .row .field input,
+.defaultForm .row .field textarea {
+	border: 1px solid #666666;
+	padding: 5px;
+}
+.defaultForm .row .field textarea {
+	resize: none;
+}
+.defaultForm .row .field input,
+.defaultForm .row .field textarea,
+.defaultForm .row .field .select2-container {
+	width: 100%;
+}
+.defaultForm .row .field.error input,
+.defaultForm .row .field.error textarea {
+	border-color: red;
+}
+.defaultForm .row .field.error .select2-container .select2-choice {
+	border-color: red;
+}
+.defaultForm .row:after {
+	clear: both;
+	content: '';
+	display: block;
+}
+.defaultForm .messages p {
+	display: none;
+}
+.defaultForm .messages p.invalid,
+.defaultForm .messages p.sendError,
+.defaultForm .messages p.error {
+	color: red;
+}
+.defaultForm .messages p.success {
+	color: green;
+}
+.buttons {
+	float: left;
+	padding-top: 10px;
+	text-align: right;
+	width: 200px;
+}

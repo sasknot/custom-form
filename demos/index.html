@@ -4,79 +4,12 @@
 	<title>Custom Form Demo</title>
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.5/select2.css" />
-	<style type="text/css">
-		body {
-			color: #000000;
-			font: 12px/1 Arial, Helvetica, sans-serif;
-		}
-		h2 {
-			clear: both;
-		}
-		.defaultForm {
-			float: left;
-			width: 600px;
-		}
-		.defaultForm .row {
-			padding: 5px 0;
-		}
-		.defaultForm .row .field {
-			float: left;
-			width: 100%;
-		}
-		.defaultForm .row .field.state {
-			width: 15%;
-		}
-		.defaultForm .row .field.city {
-			margin-left: 5%;
-			width: 80%;
-		}
-		.defaultForm .row .field input,
-		.defaultForm .row .field textarea {
-			border: 1px solid #666666;
-			padding: 5px;
-		}
-		.defaultForm .row .field textarea {
-			resize: none;
-		}
-		.defaultForm .row .field input,
-		.defaultForm .row .field textarea,
-		.defaultForm .row .field .select2-container {
-			width: 100%;
-		}
-		.defaultForm .row .field.error input,
-		.defaultForm .row .field.error textarea {
-			border-color: red;
-		}
-		.defaultForm .row .field.error .select2-container .select2-choice {
-			border-color: red;
-		}
-		.defaultForm .row:after {
-			clear: both;
-			content: '';
-			display: block;
-		}
-		.defaultForm .messages p {
-			display: none;
-		}
-		.defaultForm .messages p.invalid,
-		.defaultForm .messages p.sendError,
-		.defaultForm .messages p.error {
-			color: red;
-		}
-		.defaultForm .messages p.success {
-			color: green;
-		}
-		.buttons {
-			float: left;
-			padding-top: 10px;
-			text-align: right;
-			width: 200px;
-		}
-	</style>
+	<link rel="stylesheet" href="style.css" />
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="//cdn.jsdelivr.net/select2/3.4.5/select2.min.js"></script>
 	<script type="text/javascript" src="//cdn.jsdelivr.net/select2/3.4.5/select2_locale_pt-BR.js"></script>
 	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.maskedinput/1.3.1/jquery.maskedinput.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.maskmoney/2.1.2/jquery.maskMoney.min.js"></script>
 	<script type="text/javascript" src="../src/jquery.custom-form.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -93,22 +26,22 @@
 	<form id="firstForm" action="response.php" method="post" class="defaultForm ajaxForm">
 		<div class="row">
 			<div class="field">
-				<input name="name" type="text" placeholder="Nome" class="required" />
+				<input name="name" type="text" placeholder="Name" class="required" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="field email">
-				<input name="email" type="text" placeholder="E-mail" class="required" />
+				<input name="email" type="text" placeholder="Email" class="required" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="field phone">
-				<input name="phone" type="text" placeholder="Telefone" class="required" />
+				<input name="phone" type="text" placeholder="Phone" class="required" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="field state">
-				<select name="state" class="select2-no-search required" placeholder="UF" data-target="#atendimentoCidade" data-request-url="ajax_cidades.php?id=">
+			<div class="field target" style="width:15%;">
+				<select name="state" class="select2-no-search required" data-placeholder="State" data-target="#formCity" data-request-url="ajax_cidades.php?id=">
 					<option value=""></option>
 					<option value="1">SP</option>
 					<option value="2">RJ</option>
@@ -116,7 +49,7 @@
 				</select>
 			</div>
 			<div class="field city">
-				<select name="city" id="atendimentoCidade" class="select2 required" placeholder="Cidade">
+				<select name="city" id="formCity" class="select2 required" data-placeholder="City">
 					<option value=""></option>
 				</select>
 			</div>
@@ -127,11 +60,11 @@
 			</div>
 		</div>
 		<div class="row">
-			<input type="submit" value="enviar" />
+			<input type="submit" value="send" />
 			<div class="messages">
-				<p class="invalid">Por favor, preencha os campos obrigatórios corretamente.</p>
-				<p class="sending">Enviando...</p>
-				<p class="sendError">Ocorreu um erro no envio: <span></span></p>
+				<p class="invalid">Please, fill the mandatory fields correctly.</p>
+				<p class="sending">Sending...</p>
+				<p class="sendError">There was an error on sending: <span></span></p>
 				<p class="return"></p>
 			</div>
 		</div>
@@ -143,22 +76,22 @@
 	<form id="secondForm" action="response.php" method="post" class="defaultForm ajaxForm">
 		<div class="row">
 			<div class="field">
-				<input name="name" type="text" placeholder="Nome" class="required" />
+				<input name="name" type="text" placeholder="Name" class="required" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="field email">
-				<input name="email" type="text" placeholder="E-mail" class="required" />
+				<input name="email" type="text" placeholder="Email" class="required" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="field phone">
-				<input name="phone" type="text" placeholder="Telefone" class="required" />
+				<input name="phone" type="text" placeholder="Phone" class="required" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="field state">
-				<select name="state" class="select2-no-search required" placeholder="UF" data-target="#atendimentoCidade" data-request-url="ajax_cidades.php?id=">
+			<div class="field target" style="width:15%;">
+				<select name="state" class="select2-no-search required" data-placeholder="State" data-target="#formCity" data-request-url="ajax_cidades.php?id=">
 					<option value=""></option>
 					<option value="1">SP</option>
 					<option value="2">RJ</option>
@@ -166,7 +99,7 @@
 				</select>
 			</div>
 			<div class="field city">
-				<select name="city" id="atendimentoCidade" class="select2 required" placeholder="Cidade">
+				<select name="city" id="formCity" class="select2 required" data-placeholder="City">
 					<option value=""></option>
 				</select>
 			</div>
@@ -179,9 +112,9 @@
 		<div class="row">
 			<input type="submit" value="enviar" />
 			<div class="messages">
-				<p class="invalid">Por favor, preencha os campos obrigatórios corretamente.</p>
-				<p class="sending">Enviando...</p>
-				<p class="sendError">Ocorreu um erro no envio: <span></span></p>
+				<p class="invalid">Please, fill the mandatory fields correctly.</p>
+				<p class="sending">Sending...</p>
+				<p class="sendError">There was an error on sending: <span></span></p>
 				<p class="return"></p>
 			</div>
 		</div>

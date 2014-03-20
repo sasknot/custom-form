@@ -1,0 +1,69 @@
+<!doctype>
+<html>
+<head>
+	<title>Masks - Custom Form Demo</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.5/select2.css" />
+	<link rel="stylesheet" href="style.css" />
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/select2/3.4.5/select2.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/select2/3.4.5/select2_locale_pt-BR.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.maskedinput/1.3.1/jquery.maskedinput.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.maskmoney/2.1.2/jquery.maskMoney.min.js"></script>
+	<script type="text/javascript" src="../src/jquery.custom-form.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.defaultForm').customForm();
+		})
+	</script>
+</head>
+<body>
+	<h2>Masks demo</h2>
+	<form id="firstForm" action="response.php" method="post" class="defaultForm ajaxForm">
+		<div class="row">
+			<div class="field date">
+				<input name="date" type="text" placeholder="Date" class="required" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="field time">
+				<input name="time" type="text" placeholder="Time" class="required" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="field phone">
+				<input name="phone" type="text" placeholder="Phone" class="required" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="field cpf">
+				<input name="cpf" type="text" placeholder="CPF" class="required" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="field cnpj">
+				<input name="cnpj" type="text" placeholder="CNPJ" class="required" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="field cep">
+				<input name="cep" type="text" placeholder="CEP" class="required" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="field carPlate">
+				<input name="car_plate" type="text" placeholder="Car Plate" class="required" />
+			</div>
+		</div>
+		<div class="row">
+			<input type="submit" value="send" />
+			<div class="messages">
+				<p class="invalid">Please, fill the mandatory fields correctly.</p>
+				<p class="sending">Sending...</p>
+				<p class="sendError">There was an error on sending: <span></span></p>
+				<p class="return"></p>
+			</div>
+		</div>
+	</form>
+</body>
+</html>
