@@ -6,9 +6,10 @@
  *  @author     Rafael F. Silva <rafaelfsilva1@gmail.com>
  *  @link       /js/plugins/jquery.custom-form.js
  *  @since      14/01/2014
+ *  @version    1.0.33
  *
- *  Este plugin necessita de outros plugins para certas funcionalidades funcionarem,
- *  como: select customizado (select2), máscara (maskedinput) e monetização (maskMoney).
+ *  This plugin require other plugins to certain features to work,
+ *  like: custom select (select2), mask (maskedinput) and monetization (maskMoney).
  *
 **/
 
@@ -428,7 +429,6 @@
 
 	// Plugin initialization or method call
 	$.fn.customForm = function( methodOrOptions ) {
-
 		if( methods[ methodOrOptions ] ) {
 			var options = Array.prototype.slice.call( arguments, 1 );
 
