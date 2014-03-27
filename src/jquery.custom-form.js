@@ -6,7 +6,7 @@
  *  @author     Rafael F. Silva <rafaelfsilva1@gmail.com>
  *  @link       /js/plugins/jquery.custom-form.js
  *  @since      14/01/2014
- *  @version    1.0.34
+ *  @version    1.0.35
  *
  *  This plugin require other plugins to certain features to work,
  *  like: custom select (select2), mask (maskedinput) and monetization (maskMoney).
