@@ -398,10 +398,10 @@
 						this.tagName == 'SELECT'
 						&& (
 							$(this).val() == undefined
+							|| $(this).val() == null
 							|| $(this).val() == ''
 							|| (
-								$(this).val()
-								&& $(this).val().length
+								$(this).val().length
 								&& $(this).val().length == 0
 							)
 						)
