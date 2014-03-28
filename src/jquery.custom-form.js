@@ -86,6 +86,7 @@
 
 					var options = $.extend({
 						placeholder: true,
+						adaptContainerCssClass: function(){ return ''; },
 						containerCssClass: 'select2-custom',
 						dropdownCssClass: 'select2-custom'
 					}, thisOptions );
