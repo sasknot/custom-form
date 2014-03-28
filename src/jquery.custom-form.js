@@ -331,7 +331,7 @@
 						&& $(this).closest('.field').hasClass('url')
 						&& (
 							this.value == ''
-							|| !( /(http:\/\/)([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2,3}/.test( this.value ) )
+							|| !( /(http:\/\/)?(www)([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2,3}/.test( this.value ) )
 						)
 					)
 
