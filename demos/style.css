@@ -2,9 +2,15 @@ body {
 	color: #000000;
 	font: 12px/1 Arial, Helvetica, sans-serif;
 }
+
+input:focus {
+	outline: none;
+}
+
 h2 {
 	clear: both;
 }
+
 .defaultForm {
 	float: left;
 	width: 600px;
@@ -56,6 +62,7 @@ h2 {
 .defaultForm .messages p.success {
 	color: green;
 }
+
 .buttons {
 	float: left;
 	padding-top: 10px;

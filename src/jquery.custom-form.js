@@ -1,3 +1,31 @@
+// ^(
+// 	// first
+// 	(
+// 		(0[1-9]|[12]\d|3[01]) \/ (0[13578]|1[02]) \/ ((19|[2-9]\d)\d{2})
+// 	)
+// 	|
+
+// 	// second
+// 	(
+// 		(0[1-9]|[12]\d|30) \/ (0[13456789]|1[012]) \/ ((19|[2-9]\d)\d{2})
+// 	)
+// 	|
+
+// 	// third
+// 	(
+// 		(0[1-9]|1\d|2[0-8]) \/ 02 \/ ((19|[2-9]\d)\d{2})
+// 	)
+// 	|
+
+// 	// fourth
+// 	(
+// 		29 \/ 02 \/ ((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))
+// 	)
+// )$
+
+// ((0[1-9]|[12]\d|3[01])/(0[13578]|1[02])/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)/(0[13456789]|1[012])/((19|[2-9]d)d{2}))|((0[1-9]|1d|2[0-8])/02/((19|[2-9]d)d{2}))|(29/02/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)))
+
+
 /**
  * jQuery Plugin: Custom Form Integration
  *
@@ -6,10 +34,10 @@
  *  @author     Rafael F. Silva <rafaelfsilva1@gmail.com>
  *  @link       /js/plugins/jquery.custom-form.js
  *  @since      14/01/2014
- *  @version    1.0.35
+ *  @version    1.0.41
  *
- *  This plugin require other plugins to certain features to work,
- *  like: custom select (select2), mask (maskedinput) and monetization (maskMoney).
+ *  This plugin require other plugins to certain features work, like:
+ *  custom select (select2), mask (maskedinput) and monetization (maskMoney).
  *
 **/
 
@@ -22,14 +50,29 @@
 			var settings = $.extend({}, $.fn.customForm.defaults, options);
 			var $form = $(form);
 
+			// Define the regexp for date, based in the dateFormat setting
+			settings.dateFormat = settings.dateFormat.toLowerCase();
+			settings.dateRegExp = new RegExp(
+				'('
+					+ '(' + settings.dateFormat.replace('dd', '(0[1-9]|[12][0-9]|3[01])').replace('mm', '(0[13578]|1[02])').replace('yyyy', '((1[0-9]|[2-9][0-9])[0-9]{2})').replace('yy', '([0-9]{2})') + ')'
+					+ '|(' + settings.dateFormat.replace('dd', '(0[1-9]|[12][0-9]|30)').replace('mm', '(0[13456789]|1[012])').replace('yyyy', '((1[0-9]|[2-9][0-9])[0-9]{2})').replace('yy', '([0-9]{2})') + ')'
+					+ '|(' + settings.dateFormat.replace('dd', '(0[1-9]|1[0-9]|2[0-8])').replace('mm', '02').replace('yyyy', '((1[0-9]|[2-9][0-9])[0-9]{2})').replace('yy', '([0-9]{2})') + ')'
+					+ '|(' + settings.dateFormat.replace('dd', '29').replace('mm', '02').replace('yyyy', '((1[6-9]|[2-9][0-9])(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))').replace('yy', '(0[048]|[2468][048]|[13579][26])') + ')'
+				+ ')'
+			, 'g');
+
+			// Define the regexp for time, base in the timeFormat setting
+			settings.timeFormat = settings.timeFormat.toLowerCase();
+			settings.timeRegExp = new RegExp(settings.timeFormat.replace('hh', '([01][0-9]|2[0-3])').replace(/mm|ss/g, '[0-5][0-9]'), 'g');
+
 			// Storage the settings for later use
 			$form.data('settings', settings);
 
 			// General masks
 			// Required plugin: maskedinput
 			if( $.fn.mask ) {
-				$form.find('.field.date input[type="text"]').mask('99/99/9999');
-				$form.find('.field.time input[type="text"]').mask('99:99:99');
+				$form.find('.field.date input[type="text"]').mask( settings.dateFormat.replace(/[dmy]/g, '9') );
+				$form.find('.field.time input[type="text"]').mask( settings.timeFormat.replace(/[hms]/g, '9') );
 				$form.find('.field.phone input[type="text"]').mask('99 99999999?9');
 				$form.find('.field.cpf input[type="text"]').mask('999.999.999-99');
 				$form.find('.field.cnpj input[type="text"]').mask('99.999.999/9999-99');
@@ -261,6 +304,10 @@
 				$formFields = $formFields.closest('.field').filter(':visible').find('input, select, textarea').filter(filterExpr);
 			}
 
+			// Reset the date and time regexp for more uses
+			settings.dateRegExp.lastIndex = 0;
+			settings.timeRegExp.lastIndex = 0;
+
 			$formFields.each(function() {
 				if(
 					// For texts
@@ -294,7 +341,7 @@
 						&& $(this).closest('.field').hasClass('date')
 						&& (
 							this.value == ''
-							|| !( /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/g.test( this.value ) )
+							|| !settings.dateRegExp.test( this.value )
 						)
 					)
 
@@ -304,7 +351,7 @@
 						&& $(this).closest('.field').hasClass('time')
 						&& (
 							this.value == ''
-							|| !( /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test( this.value ) )
+							|| !settings.timeRegExp.test( this.value )
 						)
 					)
 
@@ -387,7 +434,7 @@
 						&& $(this).closest('form').find('[name="' + this.name + '"]:checked').length == 0
 					)
 
-					// for textareas
+					// For textareas
 					|| (
 						this.tagName == 'TEXTAREA'
 						&& $(this).val() == ''
@@ -458,6 +505,8 @@
 		requiredClass: 'required',
 		errorClass: 'error',
 		errorContainer: '.messages',
-		ignoreInvisible: true
+		ignoreInvisible: true,
+		dateFormat: 'dd/mm/yyyy',
+		timeFormat: 'hh:mm:ss'
 	};
 })(jQuery);
