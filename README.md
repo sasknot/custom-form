@@ -19,8 +19,8 @@ $('.defaultForm').customForm();
 * errorClass: name of the class for field errors. Default: 'error',
 * errorContainer: container for the messages. Can be a string or a jQuery element. Default: '.messages'
 * ignoreInvisible: if true, the div.field that are invisble are ignored on the validation
-* dateFormat: the format for mask and validating the fields of date type. Default: 'dd/mm/yyyy'
-* timeFormat: the format for mask and validating the fields of time type. Default: 'hh:mm:ss'
+* dateFormat: the format for mask and validation of date type fields. Default: 'dd/mm/yyyy'
+* timeFormat: the format for mask and validation of time type fields. Default: 'hh:mm:ss'
 
 ### Methods
 
