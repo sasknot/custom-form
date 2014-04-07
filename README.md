@@ -11,17 +11,34 @@ They are not mandatory, but some features may not work.
 
 ### Initialization
 
-$('.defaultForm').customForm();
+$('form').customForm( parameters );
+
+Parameters are optional, if none or only a few are passed they get the default value.
 
 ### Parameters
 
-* requiredClass: name of the classe to identify required fields. Default: 'required',
-* errorClass: name of the class for field errors. Default: 'error',
-* errorContainer: container for the messages. Can be a string or a jQuery element. Default: '.messages'
-* ignoreInvisible: if true, the div.field that are invisble are ignored on the validation
-* dateFormat: the format for mask and validation of date type fields. Default: 'dd/mm/yyyy'
-* timeFormat: the format for mask and validation of time type fields. Default: 'hh:mm:ss'
+Name | Description | Default
+--- | --- | ---
+requiredClass | Name of the classe to identify the required fields. | 'required'
+errorClass | Name of the class to put in the field with errors. | 'error'
+errorContainer | Container for the messages. Can be a string or a jQuery element. | '.messages'
+ignoreInvisible | If true, fields that are invisble are ignored on the validation process. | true
+dateFormat | The format for mask and validation of date type fields. | 'dd/mm/yyyy'
+timeFormat | The format for mask and validation of time type fields. | 'hh:mm:ss'
 
 ### Methods
 
-* $('.defaultForm').customForm('validate') - validates the entire form, without submitting
+$('form').customForm( name, parameters );
+
+Name | Description | Parameters
+--- | --- | ---
+validate | validates the entire form, without submitting | object
+
+
+### Future Development
+
+* Remove legacy support for .state from field type .target;
+* Change requiredClass to be in the field div, not in the input/textarea/select itself;
+* Build apply masks funcion (the ideia is to be reusable);
+* Document AJAX request variables on ajaxForm type;
+* Separate the validation if's for better debugging;
