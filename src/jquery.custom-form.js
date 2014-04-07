@@ -165,9 +165,6 @@
 					});
 				}
 			})
-			.on('select2-removed', function() {
-				console.log('select2-removed');
-			})
 			.on('select2-clearing', function() {
 				var $target = $( $(this).data('target') );
 
