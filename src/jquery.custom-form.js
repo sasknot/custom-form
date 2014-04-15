@@ -199,12 +199,14 @@
 								data: $form.serialize(),
 								dataType: 'json',
 								beforeSend: function() {
-									$errorContainer.find('.return').removeClass('success error');
+									$errorContainer.find('.return').removeClass('success error').html('');
 								},
 								success: function( response ) {
 									$errorContainer.find('p').hide();
 									if( response ) {
-										$errorContainer.find('.return').show().addClass(response.error ? 'error' : 'success').html(response.message);
+										if( response.message ) {
+											$errorContainer.find('.return').addClass((response.error ? 'error' : 'success')).html(response.message).show();
+										}
 
 										// Se for definida alguma URL, redireciona
 										if ( response.url || response.redirect ) {
