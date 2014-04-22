@@ -6,7 +6,7 @@
  *  @author     Rafael F. Silva <rafaelfsilva1@gmail.com>
  *  @link       /js/plugins/jquery.custom-form.js
  *  @since      14/01/2014
- *  @version    1.0.49
+ *  @version    1.0.50
  *
  *  This plugin require other plugins to certain features work, like:
  *  custom select (select2), mask (maskedinput) and monetization (maskMoney).
@@ -18,7 +18,7 @@
 
 	// Plugin avaible methods
 	var methods = {
-		setSettings: function( form, options ) {
+		_setSettings: function( form, options ) {
 			var settings = $.extend({}, $.fn.customForm.defaults, options);
 
 			// Set the messages container
@@ -50,7 +50,7 @@
 		init: function( form, options ) {
 			var $form = $(form);
 
-			var settings = this.setSettings( form, options );
+			var settings = this._setSettings( form, options );
 
 			// General masks
 			// Required plugin: maskedinput
@@ -266,7 +266,7 @@
 
 		// Validate the entire form
 		validate: function( form, options ) {
-			var settings = $(form).data('settings') || this.setSettings( form, options.options || {} );
+			var settings = $(form).data('settings') || this._setSettings( form, options.options || {} );
 			var $errorContainer = settings.errorContainer;
 			var stopSend = false;
 
