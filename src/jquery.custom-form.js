@@ -6,7 +6,7 @@
  *  @author     Rafael F. Silva <rafaelfsilva1@gmail.com>
  *  @link       /js/plugins/jquery.custom-form.js
  *  @since      14/01/2014
- *  @version    1.0.47
+ *  @version    1.0.48
  *
  *  This plugin require other plugins to certain features work, like:
  *  custom select (select2), mask (maskedinput) and monetization (maskMoney).
@@ -20,6 +20,11 @@
 	var methods = {
 		setSettings: function( form, options ) {
 			var settings = $.extend({}, $.fn.customForm.defaults, options);
+
+			// Set the messages container
+			if( typeof( settings.errorContainer ) == 'string' ) {
+				settings.errorContainer = $(form).find( settings.errorContainer );
+			}
 
 			// Define the regexp for date, based in the dateFormat setting
 			settings.dateFormat = settings.dateFormat.toLowerCase();
@@ -261,17 +266,9 @@
 
 		// Validate the entire form
 		validate: function( form, options ) {
-			var $errorContainer;
 			var settings = $(form).data('settings') || this.setSettings( form, options.options || {} );
+			var $errorContainer = settings.errorContainer;
 			var stopSend = false;
-
-			// Set the messages container
-			if( typeof( settings.errorContainer ) == 'string' ) {
-				$errorContainer = $(form).find( settings.errorContainer );
-			}
-			else {
-				$errorContainer = settings.errorContainer;
-			}
 
 			// Validates each field
 			var filterExpr = '.' + settings.requiredClass + ':not([disabled])';
