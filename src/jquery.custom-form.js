@@ -6,7 +6,7 @@
  *  @author     Rafael F. Silva <rafaelfsilva1@gmail.com>
  *  @link       /js/plugins/jquery.custom-form.js
  *  @since      14/01/2014
- *  @version    1.0.48
+ *  @version    1.0.49
  *
  *  This plugin require other plugins to certain features work, like:
  *  custom select (select2), mask (maskedinput) and monetization (maskMoney).
@@ -444,7 +444,7 @@
 			$errorContainer.find('p').hide();
 			if( stopSend ) {
 				$(form).data('is-valid', false);
-				$(form).find('.messages .invalid').show();
+				$errorContainer.find('.invalid').show();
 			}
 			else {
 				$(form).data('is-valid', true);
