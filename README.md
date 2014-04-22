@@ -33,6 +33,7 @@ $('form').customForm( name, parameters );
 Name | Description | Parameters
 --- | --- | ---
 validate | validates the entire form, without submitting | object
+destroy | remove settings and binded submit event | void
 
 
 ### Future Development
@@ -42,3 +43,4 @@ validate | validates the entire form, without submitting | object
 * Build apply masks funcion (the ideia is to be reusable);
 * Document AJAX request variables on ajaxForm type;
 * Separate the validation if's for better debugging;
+* Define a regular container for form fields (that can be modified via parameters);
