@@ -6,7 +6,7 @@
  *  @author     Rafael F. Silva <rafaelfsilva1@gmail.com>
  *  @link       /js/plugins/jquery.custom-form.js
  *  @since      14/01/2014
- *  @version    1.0.50
+ *  @version    1.0.51
  *
  *  This plugin require other plugins to certain features work, like:
  *  custom select (select2), mask (maskedinput) and monetization (maskMoney).
@@ -128,6 +128,7 @@
 				var url = $(this).data('request-url');
 
 				if( $target && url && $(this).val() != '' ) {
+					// Store the placeholder
 					var oldPlaceholder = $target.attr('placeholder') || $target.data('placeholder');
 
 					// Check if has been targetted, successively
@@ -156,7 +157,15 @@
 								options += '<option value="' + id + '">' + value + '</option>';
 							});
 
-							$target.html(options).attr('placeholder', oldPlaceholder);
+							$target.html(options);
+
+							// Get the stored placeholder
+							if( $target.attr('placeholder') ) {
+								$target.attr('placeholder', oldPlaceholder);
+							}
+							else {
+								$target.data('placeholder', oldPlaceholder);
+							}
 
 							if( $.fn.select2 ) {
 								$target.select2('val', '').select2('close');
