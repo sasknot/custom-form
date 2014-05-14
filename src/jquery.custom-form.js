@@ -1,4 +1,4 @@
-/**
+/*!*
  * jQuery Plugin: Custom Form Integration
  *
  *  @package    JS Plugins
@@ -127,7 +127,7 @@
 				var $target = $( $(this).data('target') );
 				var url = $(this).data('request-url');
 
-				if( $target && url && $(this).val() != '' ) {
+				if( $target && url && $(this).val() !== '' ) {
 					// Store the placeholder
 					var oldPlaceholder = $target.attr('placeholder') || $target.data('placeholder');
 
@@ -239,7 +239,7 @@
 											$form.trigger('ajax-callback', response.data);
 										}
 
-										if( response.error == false && response.clear ) {
+										if( response.error === false && response.clear ) {
 											$form.find('input[type="text"], input[type="password"], input[type="email"], input[type="date"], input[type="file"], select:not(.select2), textarea').val('');
 											$form.find('input[type="checkbox"], input[type="radio"]').attr('checked', false).parent().removeClass('selected');
 											if( $.fn.select2 ) {
@@ -267,7 +267,7 @@
 					}
 				});
 
-				if( $(this).hasClass('ajaxForm') || $(this).data('is-valid') == false ) {
+				if( $(this).hasClass('ajaxForm') || !$(this).data('is-valid') ) {
 					event.preventDefault();
 				}
 			});
@@ -301,10 +301,10 @@
 							this.type == 'text'
 							|| this.type == 'password'
 						)
-						&& this.value == ''
+						&& this.value === ''
 						&& (
-							$(this).closest('.field').hasClass('depends') == false
-							&& $(this).closest('.field').hasClass('dependsNot') == false
+							$(this).closest('.field').hasClass('depends') === false
+							&& $(this).closest('.field').hasClass('dependsNot') === false
 						)
 					)
 
@@ -313,7 +313,7 @@
 						this.tagName == 'INPUT'
 						&& this.type == 'file'
 						&& (
-							this.value == ''
+							this.value === ''
 							|| $(this).closest('.field').hasClass( settings.errorClass )
 						)
 					)
@@ -324,7 +324,7 @@
 						&& this.type == 'text'
 						&& $(this).closest('.field').hasClass('date')
 						&& (
-							this.value == ''
+							this.value === ''
 							|| !settings.dateRegExp.test( this.value )
 						)
 					)
@@ -334,7 +334,7 @@
 						this.tagName == 'INPUT'
 						&& $(this).closest('.field').hasClass('time')
 						&& (
-							this.value == ''
+							this.value === ''
 							|| !settings.timeRegExp.test( this.value )
 						)
 					)
@@ -348,7 +348,7 @@
 						)
 						&& $(this).closest('.field').hasClass('email')
 						&& (
-							this.value == ''
+							this.value === ''
 							|| !( /^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/.test( this.value ) )
 						)
 					)
@@ -362,7 +362,7 @@
 						)
 						&& $(this).closest('.field').hasClass('url')
 						&& (
-							this.value == ''
+							this.value === ''
 							|| !( /(http:\/\/)?(www)([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2,3}/.test( this.value ) )
 						)
 					)
@@ -372,8 +372,8 @@
 						this.tagName == 'INPUT'
 						&& $(this).closest('.field').hasClass('cpf')
 						&& (
-							this.value == ''
-							|| !(function(e){var t,n,r,i,s,o;e=e.replace(/[^0-9]/g,"");o=1;if(e.length<11){return false}for(var i=0;i<e.length-1;i++){if(e.charAt(i)!=e.charAt(i+1)){o=0;break}}if(!o){t=e.substring(0,9);n=e.substring(9);r=0;for(i=10;i>1;i--){r+=t.charAt(10-i)*i}s=r%11<2?0:11-r%11;if(s!=n.charAt(0)){return false}t=e.substring(0,10);r=0;for(i=11;i>1;i--){r+=t.charAt(11-i)*i}s=r%11<2?0:11-r%11;if(s!=n.charAt(1)){return false}return true}else{return false}})(this.value)
+							this.value === ''
+							|| !(function(e){var t,n,r,i,s,o;e=e.replace(/[^0-9]/g,"");o=1;if(e.length<11){return false;}for(i=0;i<e.length-1;i++){if(e.charAt(i)!=e.charAt(i+1)){o=0;break;}}if(!o){t=e.substring(0,9);n=e.substring(9);r=0;for(i=10;i>1;i--){r+=t.charAt(10-i)*i;}s=r%11<2?0:11-r%11;if(s!=n.charAt(0)){return false;}t=e.substring(0,10);r=0;for(i=11;i>1;i--){r+=t.charAt(11-i)*i;}s=r%11<2?0:11-r%11;if(s!=n.charAt(1)){return false;}return true;}else{return false;}})(this.value)
 						)
 					)
 
@@ -381,7 +381,7 @@
 					|| (
 						$(this).closest('.field').hasClass('equalsTo')
 						&& (
-							$(this).val().length == 0
+							$(this).val().length === 0
 							|| $(this).val() != $( $(this).data('equals-to') ).val()
 						)
 					)
@@ -390,14 +390,14 @@
 					|| (
 						$(this).closest('.field').hasClass('depends')
 						&& $( $(this).data('depends') ).is(':checked')
-						&& $(this).val().length == 0
+						&& $(this).val().length === 0
 					)
 
 					// For depends not
 					|| (
 						$(this).closest('.field').hasClass('dependsNot')
-						&& $( $(this).data('depends') ).is(':checked') == false
-						&& $(this).val().length == 0
+						&& $( $(this).data('depends') ).is(':checked') === false
+						&& $(this).val().length === 0
 					)
 
 					// For checkboxes
@@ -406,7 +406,7 @@
 						&& (
 							this.type == 'checkbox'
 						)
-						&& this.checked == false
+						&& this.checked === false
 					)
 
 					// For radios
@@ -415,30 +415,30 @@
 						&& (
 							this.type == 'radio'
 						)
-						&& $(this).closest('form').find('[name="' + this.name + '"]:checked').length == 0
+						&& $(this).closest('form').find('[name="' + this.name + '"]:checked').length === 0
 					)
 
 					// For textareas
 					|| (
 						this.tagName == 'TEXTAREA'
-						&& $(this).val() == ''
+						&& $(this).val() === ''
 					)
 
 					// For selects
 					|| (
 						this.tagName == 'SELECT'
 						&& (
-							$(this).val() == undefined
-							|| $(this).val() == null
-							|| $(this).val() == ''
+							$(this).val() === undefined
+							|| $(this).val() === null
+							|| $(this).val() === ''
 							|| (
 								$(this).val().length
-								&& $(this).val().length == 0
+								&& $(this).val().length === 0
 							)
 						)
 						&& (
-							$(this).closest('.field').hasClass('depends') == false
-							&& $(this).closest('.field').hasClass('dependsNot') == false
+							$(this).closest('.field').hasClass('depends') === false
+							&& $(this).closest('.field').hasClass('dependsNot') === false
 						)
 					)
 				) {
@@ -476,7 +476,7 @@
 			// TODO: Unmask money
 			// TODO: select2 destroy
 		}
-	}
+	};
 
 	// Plugin initialization or method call
 	$.fn.customForm = function( methodOrOptions ) {
