@@ -3,6 +3,7 @@ var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
+var pkg = require('./package.json');
 
 var paths = {
 	scripts: [
@@ -19,7 +20,8 @@ gulp.task('js-hint', function() {
 gulp.task('js-dist', function() {
 	gulp.src(paths.scripts)
 		.pipe(concat('./build'))
-		.pipe(rename('jquery.custom-form.min.js'))
+		.pipe(gulp.dest('./build'));
+		.pipe(rename(pkg.name + '.min.js'))
 		.pipe(uglify({
 			preserveComments: 'some'
 		}))
