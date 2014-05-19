@@ -20,7 +20,6 @@ gulp.task('js-hint', function() {
 gulp.task('js-dist', function() {
 	gulp.src(paths.scripts)
 		.pipe(concat('./build'))
-		.pipe(gulp.dest('./build'));
 		.pipe(rename(pkg.name + '.min.js'))
 		.pipe(uglify({
 			preserveComments: 'some'

@@ -6,7 +6,7 @@
  *  @author     Rafael F. Silva <rafaelfsilva1@gmail.com>
  *  @link       /js/plugins/jquery.custom-form.js
  *  @since      14/01/2014
- *  @version    1.0.51
+ *  @version    1.0.54
  *
  *  This plugin require other plugins to certain features work, like:
  *  custom select (select2), mask (maskedinput) and monetization (maskMoney).
@@ -17,7 +17,7 @@
 	'use strict';
 
 	// Plugin avaible methods
-	var methods = {
+	var CustomForm = {
 		_setSettings: function( form, options ) {
 			var settings = $.extend({}, $.fn.customForm.defaults, options);
 
@@ -458,8 +458,8 @@
 			else {
 				$(form).data('is-valid', true);
 
-				if( options[0].success ) {
-					options[0].success.apply( form, $errorContainer );
+				if( options.success ) {
+					options.success.apply( form, $errorContainer );
 				}
 			}
 		},
@@ -480,16 +480,16 @@
 
 	// Plugin initialization or method call
 	$.fn.customForm = function( methodOrOptions ) {
-		if( methods[ methodOrOptions ] ) {
-			var options = Array.prototype.slice.call( arguments, 1 );
+		if( CustomForm[ methodOrOptions ] ) {
+			var options = typeof(arguments[1]) === 'object' ? arguments[1] : {};
 
 			return this.each(function(){
-				methods[ methodOrOptions ].call( methods, this, options );
+				CustomForm[ methodOrOptions ].call( CustomForm, this, options );
 			});
 		}
-		else if ( typeof methodOrOptions === 'object' || !methodOrOptions ) {
+		else if ( typeof(methodOrOptions) === 'object' || !methodOrOptions ) {
 			return this.each(function(){
-				methods.init.call( methods, this, methodOrOptions );
+				CustomForm.init.call( CustomForm, this, methodOrOptions );
 			});
 		}
 		else {
