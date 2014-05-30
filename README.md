@@ -1,7 +1,11 @@
 Custom Form Integration
-===========
+========================
 
-### Dependencies
+A plugin for customizing the form with validation and masks.
+
+
+Dependencies
+-------------
 
 * Select2 3.4.5 (http://ivaynberg.github.io/select2/)
 * Masked Input 1.3.1 (http://digitalbush.com/projects/masked-input-plugin/)
@@ -9,11 +13,36 @@ Custom Form Integration
 
 They are not mandatory, but some features may not work.
 
-### Initialization
+
+Installation
+-------------
+
+1. Make sure you have Node.js installed, or else download and install from [nodejs.org](http://nodejs.org)
+2. If you do not have [Bower](http://bower.io/) installed yet, run the following command and install it globally:
+
+	`npm install -g bower`
+
+3. Run the following commands in terminal to install gulp, it's plugins, external jQuery plugins and build the minified files:
+
+	`npm install` 
+
+	`bower install` 
+
+	`gulp` 
+
+Now you are ready to code and make awesome tricks!
+
+
+Initialization
+---------------
 
 $('form').customForm( parameters );
 
 Parameters are optional, if none or only a few are passed they get the default value.
+
+
+Documentation
+--------------
 
 ### Parameters
 
