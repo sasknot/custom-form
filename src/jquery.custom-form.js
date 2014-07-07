@@ -463,8 +463,6 @@
 
 				if( options.success ) {
 					options.success.apply( form, $errorContainer );
-
-					$(form).data('is-valid', false);
 				}
 			}
 		},
