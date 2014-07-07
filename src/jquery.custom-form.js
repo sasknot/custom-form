@@ -52,6 +52,9 @@
 
 			var settings = this._setSettings( form, options );
 
+			// Set initial value for valid
+			$(form).data('is-valid', false);
+
 			// General masks
 			// Required plugin: maskedinput
 			if( $.fn.mask ) {
@@ -460,6 +463,8 @@
 
 				if( options.success ) {
 					options.success.apply( form, $errorContainer );
+
+					$(form).data('is-valid', false);
 				}
 			}
 		},
