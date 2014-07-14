@@ -170,8 +170,18 @@
 								$target.data('placeholder', oldPlaceholder);
 							}
 
+							// If it has a initial value to select
+							if( $target.data('initial-value') ) {
+								$target.val($target.data('initial-value'));
+							}
+
 							if( $.fn.select2 ) {
 								$target.select2('val', '').select2('close');
+
+								// If it has a initial value to select
+								if( $target.data('initial-value') ) {
+									$target.select2('val', $target.data('initial-value'));
+								}
 							}
 
 							// Check if has targets in the current targetted element, successively
