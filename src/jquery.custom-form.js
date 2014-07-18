@@ -101,18 +101,37 @@
 			// Custom select
 			// Required plugin: select2
 			if( $.fn.select2 ) {
-				// Sem campo de busca
-				$form.find('.field select.select2-no-search').each(function() {
-					var options = $(this).data('options') || {};
-
-					$.extend( options, { minimumResultsForSearch: -1 } );
-
-					$(this).data('options', options);
-				});
-
 				// Procura por todos os selects com a classe começando em "select2"
 				$form.find('.field select[class*="select2"]').each(function() {
 					var thisOptions = $(this).data('options') || {};
+
+					// Without search field
+					if( $(this).hasClass('select2-no-search') ) {
+						thisOptions.minimumResultsForSearch = -1;
+					}
+
+					// Tags format
+					if( $(this).hasClass('select2-tags') ) {
+						thisOptions.tags = [];
+					}
+
+					// Unique selection
+					if( $(this).hasClass('select2-unique-selection') ) {
+						thisOptions.multiple = true;
+						thisOptions.allowClear = true;
+
+						$(this)
+							.on('select2-selecting', function( event ) {
+								var uniqueKey = $(this).find('option[value="' + event.val + '"]').data('unique-key');
+
+								$(this).find('option[data-unique="' + uniqueKey + '"]').not('option[value="' + event.val + '"]').attr('disabled', 'disabled');
+							})
+							.on('select2-removed', function( event ) {
+								var uniqueKey = $(this).find('option[value="' + event.val + '"]').data('unique-key');
+
+								$(this).find('option[data-unique="' + uniqueKey + '"]').removeAttr('disabled');
+							});
+					}
 
 					var options = $.extend({
 						placeholder: true,
