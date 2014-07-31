@@ -317,7 +317,7 @@
 
 			// FIXME: define a regular container for form fields
 			if( settings.ignoreInvisible ) {
-				$formFields = $formFields.closest('.field').filter(':visible').find('input, select, textarea').filter(filterExpr);
+				$formFields = $formFields.closest('.field').filter(':visible').find('input, select, textarea').filter(':visible').filter(filterExpr);
 			}
 
 			// Reset the date and time regexp for more uses
