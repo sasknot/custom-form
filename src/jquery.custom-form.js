@@ -117,7 +117,6 @@
 
 					// Unique selection
 					if( $(this).hasClass('select2-unique-selection') ) {
-						thisOptions.multiple = true;
 						thisOptions.allowClear = true;
 
 						$(this)
