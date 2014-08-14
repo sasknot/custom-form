@@ -18,6 +18,8 @@
 
 	// Plugin avaible methods
 	var CustomForm = {
+		settings: {},
+
 		_setSettings: function( form, options ) {
 			var settings = $.extend({}, $.fn.customForm.defaults, options);
 
@@ -51,52 +53,14 @@
 			var $form = $(form);
 
 			var settings = this._setSettings( form, options );
+			this.settings = settings;
 
 			// Set initial value for valid
 			$(form).data('is-valid', false);
 
 			// General masks
 			// Required plugin: maskedinput
-			if( $.fn.mask ) {
-				$form.find('.field.date input[type="text"]').mask( settings.dateFormat.replace(/[dmy]/g, '9') );
-				$form.find('.field.time input[type="text"]').mask( settings.timeFormat.replace(/[hms]/g, '9') );
-				$form.find('.field.phone input[type="text"]').mask('99 99999999?9');
-				$form.find('.field.cpf input[type="text"]').mask('999.999.999-99');
-				$form.find('.field.cnpj input[type="text"]').mask('99.999.999/9999-99');
-				$form.find('.field.cep input[type="text"]').mask('99999-999');
-				$form.find('.field.carPlate input[type="text"]').mask('aaa-9999');
-			}
-
-			// Money and float masks
-			// Required plugin: maskMoney
-			if( $.fn.maskMoney ) {
-				var defaults = {
-					symbol: 'R$',
-					showSymbol: true,
-					symbolStay: true,
-					thousands: '.',
-					decimal: ',',
-					precision: 2,
-					defaultZero: true,
-					allowZero: false,
-					allowNegative: false
-				};
-
-				$form.find('.field.money input[type="text"]').each(function() {
-					var options = $.extend( defaults, $(this).data('options') || {} );
-
-					$(this).maskMoney( options );
-				});
-
-				$form.find('.field.float input[type="text"]').each(function() {
-					var options = $.extend( defaults, {
-						symbol: '',
-						thousands: ''
-					});
-
-					$(this).maskMoney( options );
-				});
-			}
+			this.mask( form );
 
 			// Custom select
 			// Required plugin: select2
@@ -492,6 +456,52 @@
 				if( options.success ) {
 					options.success.apply( form, $errorContainer );
 				}
+			}
+		},
+
+		mask: function( form ) {
+			var $form = $(form);
+			var settings = this.settings;
+
+			if( $.fn.mask ) {
+				$form.find('.field.date input[type="text"]').mask( this.settings.dateFormat.replace(/[dmy]/g, '9') );
+				$form.find('.field.time input[type="text"]').mask( this.settings.timeFormat.replace(/[hms]/g, '9') );
+				$form.find('.field.phone input[type="text"]').mask('99 99999999?9');
+				$form.find('.field.cpf input[type="text"]').mask('999.999.999-99');
+				$form.find('.field.cnpj input[type="text"]').mask('99.999.999/9999-99');
+				$form.find('.field.cep input[type="text"]').mask('99999-999');
+				$form.find('.field.carPlate input[type="text"]').mask('aaa-9999');
+			}
+
+			// Money and float masks
+			// Required plugin: maskMoney
+			if( $.fn.maskMoney ) {
+				var defaults = {
+					symbol: 'R$',
+					showSymbol: true,
+					symbolStay: true,
+					thousands: '.',
+					decimal: ',',
+					precision: 2,
+					defaultZero: true,
+					allowZero: false,
+					allowNegative: false
+				};
+
+				$form.find('.field.money input[type="text"]').each(function() {
+					var options = $.extend( defaults, $(this).data('options') || {} );
+
+					$(this).maskMoney( options );
+				});
+
+				$form.find('.field.float input[type="text"]').each(function() {
+					var options = $.extend( defaults, {
+						symbol: '',
+						thousands: ''
+					});
+
+					$(this).maskMoney( options );
+				});
 			}
 		},
 
